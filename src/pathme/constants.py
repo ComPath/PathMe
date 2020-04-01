@@ -46,6 +46,7 @@ WIKIPATHWAYS_FILES = os.path.join(WIKIPATHWAYS_DIR, 'rdf')
 
 SPIA_DIR = os.path.join(DATA_DIR, 'spia')
 CX_DIR = os.path.join(DATA_DIR, 'cx')
+HIPATHIA_DIR = os.path.join(DATA_DIR, 'hipathia')
 PPI_DIR = os.path.join(DATA_DIR, 'ppi')
 UNIVERSE_DIR = os.path.join(DATA_DIR, 'universe')
 
