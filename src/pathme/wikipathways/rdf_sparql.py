@@ -222,6 +222,8 @@ def get_wp_statistics(resource_files, resource_folder, hgnc_manager) -> Tuple[
 
     :param iter[str] resource_files: RDF file path
     :param str resource_folder: RDF file path
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
     """
     global_statistics = defaultdict(lambda: defaultdict(int))
     all_pathways_statistics = {}
@@ -262,7 +264,8 @@ def rdf_wikipathways_to_bel(rdf_graph: rdflib.Graph, hgnc_manager) -> BELGraph:
     """Convert RDF graph to BELGraph.
 
     :param rdf_graph: RDF graph
-    :param bio2bel_hgnc.Manager: HGNC manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
     """
     nodes, complexes, interactions = _get_pathway_components(rdf_graph)
     metadata = _get_pathway_metadata(rdf_graph)
@@ -273,7 +276,8 @@ def wikipathways_to_bel(file_path: str, hgnc_manager):
     """Convert WikiPathways RDF file to BEL.
 
     :param str file_path: path to the file
-    :param bio2bel_hgnc.Manager: HGNC manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
     :rtype: pybel.BELGraph
     """
     rdf_graph = parse_rdf(file_path, fmt='turtle')

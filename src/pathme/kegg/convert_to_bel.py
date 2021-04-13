@@ -27,6 +27,7 @@ from ..export_utils import add_annotation_key
 from ..utils import add_bel_metadata
 
 __all__ = [
+    'get_bel_types',
     'kegg_to_bel',
     'kegg_to_pickles',
 ]
@@ -40,8 +41,10 @@ def kegg_to_bel(path, hgnc_manager, chebi_manager, flatten=False):
     """Convert KGML file to a BELGraph.
 
     :param str path: path to KGML file
-    :param bio2bel_hgnc.Manager hgnc_manager: HGNC manager
-    :param bio2bel_chebi.Manager chebi_manager: ChEBI manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
     :param bool flatten: flat nodes
     :rtype: BELGraph
     """
@@ -470,8 +473,8 @@ def add_reaction_edges(graph, reaction_dict, nodes):
 
             # Get product compound node
             for target_id in target:
-                product = nodes[target_id]
-                products_list.append(product)
+                _product = nodes[target_id]
+                products_list.append(_product)
 
                 for reactant_compound in reactants_list:
                     for product_compound in products_list:
@@ -483,14 +486,14 @@ def add_reaction_edges(graph, reaction_dict, nodes):
 
                         # If multiple compounds represent a reactant, add reaction BEL node to graph
                         elif isinstance(reactants_list, list) and not isinstance(products_list, list):
-                            for reactant_compound in reactants_list:
-                                reaction_node = reaction(reactants=reactant_compound, products=products_list)
+                            for _reactant_compound in reactants_list:
+                                reaction_node = reaction(reactants=_reactant_compound, products=products_list)
                                 graph.add_node_from_data(reaction_node)
 
                         # If multiple compounds represent a product, add reaction BEL node to graph
                         elif not isinstance(reactants_list, list) and isinstance(products_list, list):
-                            for product_compound in products_list:
-                                reaction_node = reaction(reactants=reactants_list, products=product_compound)
+                            for _product_compound in products_list:
+                                reaction_node = reaction(reactants=reactants_list, products=_product_compound)
                                 graph.add_node_from_data(reaction_node)
 
                         # If reactant and product is represented by a single compound, add reaction BEL node to graph
@@ -655,8 +658,10 @@ def get_bel_types(path, hgnc_manager, chebi_manager, flatten=None):
     """Get all BEL node and edge type statistics.
 
     :param str path: path to KGML file
-    :param bio2bel_hgnc.Manager hgnc_manager: HGNC manager
-    :param bio2bel_chebi.Manager chebi_manager: ChEBI manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
     :param bool flatten: flat nodes
     :return: count of all nodes and edges in BEL graph
     :rtype: dict
@@ -684,6 +689,9 @@ def kegg_to_pickles(resource_files, resource_folder, hgnc_manager, chebi_manager
 
     :param iter[str] resource_files: iterator with file names
     :param str resource_folder: path folder
+    :param hgnc_manager: hgnc manager
+    :param chebi_manager: ChEBI Manager
+    :param bool flatten: flat nodes
     :param Optional[str] export_folder: export folder
     """
     if export_folder is None:

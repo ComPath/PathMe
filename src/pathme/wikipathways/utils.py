@@ -89,6 +89,7 @@ def get_valid_gene_identifier(node_ids_dict, hgnc_manager: HgncManager, pathway_
 
     :param dict node_ids_dict: node dictionary
     :param hgnc_manager: hgnc manager
+    :param pathway_id: ID of pathway
     :return: namespace, name, identifier
     """
     # Try to get hgnc symbol
@@ -221,6 +222,7 @@ def check_multiple(element, element_name, pathway_id):
 
     :param element: variable to check
     :param element_name: name to print
+    :param pathway_id: ID of pathway
     :return:
     """
     if isinstance(element, (set, list)):

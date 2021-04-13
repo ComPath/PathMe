@@ -55,10 +55,13 @@ def download_kgml_files(kegg_pathway_ids):
 def get_kegg_statistics(path, hgnc_manager, chebi_manager, flatten=None):
     """Parse a folder and get KEGG statistics.
 
-    :param graph: path
-    :param bio2bel_hgnc.Manager hgnc_manager: HGNC manager
-    :param bio2bel_chebi.Manager chebi_manager: ChEBI manager
-    :param str path: path to folder containing XML files
+    :param path: path to folder containing XML files
+    :type path: str
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
+    :param flatten: Whether to flatten
     :return: KEGG KGML file and BEL graph statistics
     :rtype: pandas.DataFrame
     """

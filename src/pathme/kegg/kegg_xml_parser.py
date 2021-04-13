@@ -42,8 +42,10 @@ def _post_process_api_query(node_meta_data, hgnc_manager, chebi_manager):
     """Process API query.
 
     :param dict[str,str] node_meta_data: JSON retrieved from the API
-    :param bio2bel_hgnc.Manager hgnc_manager: HGNC Manager
-    :param bio2bel_chebi.Manager chebi_manager: ChEBI Manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
     :return: Standard identifiers for the protein/chemical
     :rtype: dict[str,str]
     """
@@ -105,8 +107,10 @@ def _process_kegg_api_get_entity(entity, entity_type, hgnc_manager, chebi_manage
 
     :param str entity: A KEGG identifier
     :param str entity_type: Entity type
-    :param bio2bel_hgnc.Manager hgnc_manager: HGNC Manager
-    :param bio2bel_chebi.Manager chebi_manager: ChEBI Manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
     :return: JSON retrieved from the API
     :rtype: dict[str,str]
     """
@@ -135,8 +139,10 @@ def get_entity_nodes(tree, hgnc_manager, chebi_manager):
     """Find entry elements (KEGG pathway nodes) in XML.
 
     :param xml.etree.ElementTree.ElementTree tree: XML tree
-    :param bio2bel_hgnc.Manager hgnc_manager: HGNC Manager
-    :param bio2bel_chebi.Manager chebi_manager: ChEBI Manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
     :return: genes with corresponding metadata (entry_id: [kegg_id, HGNC, UniProt])
     :return: compounds with corresponding metadata (entry_id: [compound_name, ChEBI])
     :return: biological processes with corresponding metadata  (entry_id: [kegg_id, map_name])

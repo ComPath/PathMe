@@ -11,9 +11,8 @@ import click
 import networkx as nx
 import pandas as pd
 import requests
-from tqdm import tqdm
-
 from diffupath.utils import get_dir_list, get_or_create_dir
+from tqdm import tqdm
 
 from bio2bel import ensure_path
 from bio2bel_kegg.constants import KEGG_ORGANISM_URL, MODULE_NAME
@@ -119,6 +118,7 @@ def export_helper(
     :param kegg_path: directory to KEGG pickles
     :param reactome_path: directory to Reactome pickles
     :param wikipathways_path: directory to WikiPathways pickles
+    :param fmt: Export format
     """
     kegg_pickles, reactome_pickles, wp_pickles = get_all_pickles(
         kegg_path=kegg_path,
@@ -212,7 +212,7 @@ def export_helper(
             raise ValueError(f'Unknown export format: {fmt}')
 
 
-def iterate_indra_statements(**kwargs) -> Iterable['indra.statements.Statement']:
+def iterate_indra_statements(**kwargs) -> Iterable['import indra as indra]:
     """Iterate over INDRA statements for the universe."""
     for _, _, graph in iterate_universe_graphs(**kwargs):
         yield from pybel.to_indra_statements(graph)
@@ -356,18 +356,21 @@ def download_kgml_files(kegg_pathway_ids, path=KEGG_FILES):
     """Download KEGG KGML files by querying the KEGG API.
 
     :param list kegg_pathway_ids: list of kegg ids
+
+    :param path: Location of KEGG files
     """
     for kegg_id in tqdm.tqdm(kegg_pathway_ids, desc='Downloading KEGG files'):
         request = requests.get(KEGG_KGML_URL.format(kegg_id))
-        with open(os.path.join(path, '{}.xml'.format(kegg_id)), 'w+') as file:
+        with open(os.path.join(path, f'{kegg_id}.xml'), 'w+') as file:
             file.write(request.text)
-            file.close()
 
 
 def get_kegg_pathway_ids(connection=None, populate=False, species='hsa'):
     """Return a list of all pathway identifiers stored in the KEGG database.
 
     :param Optional[str] connection: connection to the database
+    :param populate: Whether to populate
+    :param species: Defaults to Homo Sapiens
     :returns: list of all kegg_pathway_ids
     :rtype: list
     """

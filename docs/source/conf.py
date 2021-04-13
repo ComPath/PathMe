@@ -24,7 +24,9 @@ author = 'Daniel Domingo-Fernández, Sarah Mubeen, Josep Marin Llao, and Charles
 release = '0.1.14-dev'
 
 parsed_version = re.match(
-    '(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)(?:-(?P<release>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+(?P<build>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?',
+    '(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)'
+    '(?:-(?P<release>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?'
+    '(?:\+(?P<build>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?',
     release,
 )
 version = parsed_version.expand('\g<major>.\g<minor>.\g<patch>')

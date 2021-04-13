@@ -272,7 +272,10 @@ def get_reactome_statistics(resource_file, hgnc_manager, chebi_manager):
     """Get types statistics for Reactome.
 
     :param str resource_file: RDF file
-    :param bio2bel_hgnc.Manager hgnc_manager: Hgnc Manager
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
     """
     logger.info('Parsing Reactome RDF file')
     rdf_graph = parse_rdf(resource_file, fmt='xml')
@@ -304,8 +307,12 @@ def get_reactome_statistics(resource_file, hgnc_manager, chebi_manager):
 def reactome_pathway_to_bel(pathway_uri, rdf_graph, hgnc_manager, chebi_manager) -> BELGraph:
     """Convert a Reactome pathway to BEL.
 
-    :param str filepath: path to the file
-    :param bio2bel_hgnc.Manager hgnc_manager: Bio2BEL HGNC Manager
+    :param pathway_uri: URI reference of the queried graph
+    :param rdf_graph: RDF graph object
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
     """
     pathway_metadata = _get_pathway_metadata(pathway_uri, rdf_graph)
 
@@ -319,6 +326,11 @@ def reactome_to_bel(resource_file: str, hgnc_manager, chebi_manager, export_fold
 
     :param resource_file: rdf reactome file (there is only one)
     :param bio2bel_hgnc.Manager hgnc_manager: uniprot id to hgnc symbol dictionary
+    :param hgnc_manager: HGNC manager
+    :type hgnc_manager: bio2bel_hgnc.Manager
+    :param chebi_manager: ChEBI manager
+    :type chebi_manager: bio2bel_chebi.Manager
+    :param export_folder: export folder
     :return:
     """
     logger.info('Parsing Reactome RDF file')

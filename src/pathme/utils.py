@@ -228,7 +228,7 @@ def query_result_to_dict(entries, **kwargs) -> Dict[str, Dict[str, Dict[str, str
 def get_entry_statitics(types_list, primary_type=None, **kwargs):
     """Get types statistics for a pathway entries type (nodes or interactions) set.
 
-    :param str rdf_graph: primary entries type identifier (ex: DataNode or Interaction)
+    :param types_list: List of types
     :param str primary_type: primary entries type identifier (ex: DataNode or Interaction)
     """
     type_statistics = collections.defaultdict(int)
@@ -494,9 +494,13 @@ def jaccard_similarity(database_gene_set, bel_genes_set):
 def make_downloader(url, path, export_path, decompress_file):
     """Make a function that downloads the data for you, or uses a cached version at the given path.
 
-    :param str url: The URL of some data
-    :param str export_path: folder where decompressed file will be exported
-    :param method decompress_file: method to decompress file
+    :param url: The URL of some data
+    :type url: str
+    :param path: path to file (will reuse if exists and `force_download` is False) otherwise will download to here
+    :param export_path: folder where decompressed file will be exported
+    :type export_path: str
+    :param decompress_file: method to decompress file
+    :type decompress_file: Callable[[str, str], Any]
     :return: A function that downloads the data and returns the path of the data
     :rtype: (bool -> str)
     """

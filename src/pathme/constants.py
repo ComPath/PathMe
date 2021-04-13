@@ -24,7 +24,7 @@ def get_data_dir() -> str:
 
 
 DATA_DIR = get_data_dir()
-DEFAULT_CACHE_CONNECTION = get_connection()
+DEFAULT_CACHE_CONNECTION = get_connection("pathme.constants")
 
 # Databases contained in PathMe
 #: KEGG
